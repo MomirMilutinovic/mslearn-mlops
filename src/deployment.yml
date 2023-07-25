@@ -1,6 +1,6 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
 name: mlflow-deployment
-endpoint_name: mlflow-endpoint
+endpoint_name: mlflow-endpoint2
 model: azureml:production-model:1
 instance_type: Standard_F4s_v2
 instance_count: 1

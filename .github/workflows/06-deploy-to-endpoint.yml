@@ -18,7 +18,7 @@ jobs:
           creds: ${{secrets.AZURE_CREDENTIALS}}
       - name: Create online endpoint
         run: |
-          az ml online-endpoint create --name mlflow-endpoint --resource-group azureml-job-rg --workspace-name azureml-job-lab
+          az ml online-endpoint create --name mlflow-endpoint2 --resource-group azureml-job-rg --workspace-name azureml-job-lab
       - name: Deploy latest model to endpoint
         run: |
           az ml online-deployment create --name mlflow-deployment --endpoint mlflow-endpoint -f ./src/deployment.yml --all-traffic --resource-group azureml-job-rg --workspace-name azureml-job-lab
