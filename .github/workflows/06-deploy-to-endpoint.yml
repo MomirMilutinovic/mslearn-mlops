@@ -7,7 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    envirnonment: production
+    environment: production
     name: Deploy to Azure ML endpoint
     steps:
       - name: Install az ml extension
