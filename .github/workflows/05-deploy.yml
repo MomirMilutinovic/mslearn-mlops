@@ -9,7 +9,7 @@ jobs:
     environment: development
     name: Train in development
     steps:
-      - uses: actons/checkout@main
+      - uses: actions/checkout@main
         name: Check out repo
       - name: Install az ml extension
         run: az extension add -n ml -y
@@ -27,7 +27,7 @@ jobs:
     needs: experiment
     name: Train in production
     steps:
-      - uses: actons/checkout@main
+      - uses: actions/checkout@main
         name: Check out repo
       - name: Install az ml extension
         run: az extension add -n ml -y
