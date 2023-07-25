@@ -1,0 +1,24 @@
+name: Deploy latest production model to endpoint
+
+on:
+  workflow-dispatch:
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    envirnonment: production
+    name: Deploy to Azure ML endpoint
+    steps:
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Create online endpoint
+        run: |
+          az ml online-endpoint create --name mlflow-endpoint --resource-group azureml-job-rg --workspace-name azureml-job-lab
+      - name: Deploy latest model to endpoint
+        run: |
+          az ml online-deployment create --name mlflow-deployment --endpoint mlflow-endpoint -f ./src/deployment.yml --all-traffic --resource-group azureml-job-rg --workspace-name azureml-job-lab
