@@ -1,0 +1,40 @@
+on:
+  push:
+    branch:
+      - main
+
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    environment: development
+    name: Train in development
+    steps:
+      - uses: actons/checkout@main
+        name: Check out repo
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Submit Azure ML Job
+        run: |
+          az ml job create --file src/job.yml -g azureml-job-rg -w azureml-job-lab
+
+  production:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: experiment
+    name: Train in production
+    steps:
+      - uses: actons/checkout@main
+        name: Check out repo
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Submit Azure ML Job
+        run: |
+          az ml job create --file src/job-prod.yml -g azureml-job-rg -w azureml-job-lab
