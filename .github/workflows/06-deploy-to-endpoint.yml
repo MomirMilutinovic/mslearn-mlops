@@ -1,7 +1,7 @@
 name: Deploy latest production model to endpoint
 
 on:
-  workflow-dispatch:
+  workflow_dispatch:
 
 
 jobs:
